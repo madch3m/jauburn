@@ -19,6 +19,13 @@ MockTranscript >> initialize [
 ^Transcript.
 ]
 
+{ #category : #streaming }
+MockTranscript >> show: value [
+
+
+ content := value.
+]
+
 { #category : #accessing }
 MockTranscript >> textEntry: value [
 

@@ -26,11 +26,7 @@ JbInterpreter >> concatBinding [
 	^#concat -> [ :a1 :a2 |
 		
 		(a1 isString 
-		  ifTrue: [ a1 ]
-		  ifFalse: [ a1 printString ]),
-		  (a2 isString 
-		       ifTrue:[a2]
-		       ifFalse: [a2 printString ]).]
+		  ifTrue: [ a1 ]ifFalse: [ a1 printString ]), (a2 isString ifTrue:[a2] ifFalse: [a2 printString ]).]
 	
 		
 		
@@ -67,11 +63,11 @@ JbInterpreter >> initializeBindings [
 
 (self class selectors select: [ :each | each endsWith: 'Binding' ])
 do: [ :s |
-| val binding |
-binding := self perform: s.
+| val binded |
+binded := self perform: s.
 val := JbPrimitive new.
-val block: binding value.
-self environment at: binding key put: val  ].
+val block: binded value.
+self environment at: binded key put: val  ].
 ]
 
 { #category : #printing }

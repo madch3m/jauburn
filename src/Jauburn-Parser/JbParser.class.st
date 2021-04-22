@@ -466,8 +466,8 @@ JbParser >> program [
 				yourself ]
 ]
 
-{ #category : #statements }
-JbParser >> returnStatement [
+{ #category : #accessing }
+JbParser >> returnStatement [ 
 
 	^'return' asParser trim , expression, $; asParser trim ==> [ :arr |
 			JbReturnStatementNode new
