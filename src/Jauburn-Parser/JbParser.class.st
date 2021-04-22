@@ -139,7 +139,8 @@ Class {
 		'stringExpression',
 		'stringComparisonExpression',
 		'booleanExpression',
-		'functionCallStatement'
+		'functionCallStatement',
+		'whileStatement'
 	],
 	#category : #'Jauburn-Parser-Core'
 }
@@ -212,7 +213,75 @@ JbParser >> arithmeticExpression [
 						operator: op;
 						lhs: a;
 						rhs: b;
-						yourself ] ].
+						yourself ]. 
+				g	left: $> asParser trim
+				do: [ :a :op :b | 
+					JbArity2OperatorNode new
+						operator: op;
+						lhs: a;
+						rhs: b;
+						yourself ]. 
+				g left: $< asParser trim 
+				do: [ :a :op :b |
+					JbArity2OperatorNode  new 
+					 operator: op;
+					  lhs: a;
+					  rhs: b;
+					  yourself ]. 
+				g left: '==' asParser trim 
+				 do: [ :a :op :b |
+					  JbArity2OperatorNode new
+					   operator: op;
+					   lhs: a;
+					   rhs: b;
+					   yourself
+					
+					 ].
+				g left: '>=' asParser trim 
+				 do: [ :a :op :b |
+					  JbArity2OperatorNode new
+					   operator: op;
+					   lhs: a;
+					   rhs: b;
+					   yourself
+					
+					 ].
+				g left: '<=' asParser trim 
+				 do: [ :a :op :b |
+					  JbArity2OperatorNode new
+					   operator: op;
+					   lhs: a;
+					   rhs: b;
+					   yourself
+					
+					 ].
+				
+				g left: '!=' asParser trim 
+				 do: [ :a :op :b |
+					  JbArity2OperatorNode new
+					   operator: op;
+					   lhs: a;
+					   rhs: b;
+					   yourself
+					
+					 ].
+				g left: '-' asParser trim 
+				 do: [ :op :b |
+					  JbArity1OperatorNode new
+					   operator: op;
+					   operand: b;
+					   yourself
+					
+					 ]
+				
+				]
+				
+				
+			  
+			
+			.
+					
+					
 	^ exp
 ]
 
@@ -416,7 +485,7 @@ JbParser >> start [
 JbParser >> statement [
 
 	^ variableDeclarationStatement / assignmentStatement
-		/ ifElseStatement / ifStatement / returnStatement / functionCallStatement
+		/ ifElseStatement / ifStatement / returnStatement / functionCallStatement/whileStatement 
 ]
 
 { #category : #statements }
@@ -461,4 +530,19 @@ JbParser >> variableDeclarationStatement [
 				identifier: arr second;
 				expression: arr fourth;
 				yourself ]
+]
+
+{ #category : #accessing }
+JbParser >> whileStatement [
+
+^'while' asParser trim, $(asParser trim , expression , $) asParser trim, statementBlock  
+ ==> [  :arr|
+	
+	    JbWhileLoopStatementNode new
+				condition: arr third;
+				trueStatements: arr fifth;
+				yourself ]
+	
+	
+
 ]

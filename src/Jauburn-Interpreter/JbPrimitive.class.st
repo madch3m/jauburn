@@ -21,8 +21,9 @@ JbPrimitive >> block: anObject [
 ]
 
 { #category : #api }
-JbPrimitive >> call: arguments in: callEnvironment [
-	"You need to implement this method!  arguments will contain the arguments to pass to this function and callEnvironment will contain the environment in place when this function was called."
-	
-	self shouldBeImplemented 
+JbPrimitive >> call: arguments in: environment [
+
+^block valueWithPossibleArgs: (arguments  collect:[ :a| a evaluateIn: environment]).
+
+
 ]

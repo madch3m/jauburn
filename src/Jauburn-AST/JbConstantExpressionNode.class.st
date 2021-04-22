@@ -7,6 +7,14 @@ Class {
 	#category : #'Jauburn-AST-Core'
 }
 
+{ #category : #'as yet unclassified' }
+JbConstantExpressionNode >> evaluateIn: environment [ 
+
+	^value
+
+
+]
+
 { #category : #accessing }
 JbConstantExpressionNode >> value [
 	^ value
